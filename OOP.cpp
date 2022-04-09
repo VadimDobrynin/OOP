@@ -1,11 +1,50 @@
-﻿// OOP.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿// first.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 
 #include <iostream>
+#include <string>
+#include <stdint.h>
+using namespace std;
+/*
+* Делегирующий конструктор
+*/
+
+class Human {
+public:
+    Human(string name)
+    {
+        this->name = name;
+        this->age = 0;
+        this->weight = 0;
+    }
+    Human(string name, int age) : Human(name)
+    {
+        this->age = age;
+    }
+    Human(string name, int age, int weight) : Human(name, age)
+    {
+        this->weight = weight;
+    }
+    void getParams() {
+        cout << "name = " << name << endl
+            << "age = " << age << endl
+            << "weight = " << weight << endl;
+
+    }
+private:
+    string name;
+    int age;
+    int weight;
+
+};
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    setlocale(LC_ALL, "ru");
+    Human h("Tardis");
+    h.getParams();
+
+
+    return 0;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
