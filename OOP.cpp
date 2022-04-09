@@ -2,9 +2,53 @@
 //
 
 #include <iostream>
+#include <string.h>
 
+using namespace std;
+
+class Msg {
+public:
+    Msg(string msg) {
+        this->msg = msg;
+    }
+    virtual string GetMsg() {
+        return msg;
+    }
+
+private:
+    string msg;
+};
+
+class Printer {
+public:
+    void print(Msg * msg) {
+        cout << msg->GetMsg() << endl;
+    }
+};
+class BraketsMsg : public Msg {
+public:
+    BraketsMsg(string msg) : Msg(msg) 
+    {
+
+    }
+    string GetMsg() override 
+    {
+        // для вызова базоваго метода:
+        // ::Имя базового класса::Имя метода()
+        //в противном случае можно угодить в рекурсию
+        return "[" + ::Msg::GetMsg() + "]"; 
+    }
+};
 int main()
 {
+    setlocale(LC_ALL, "ru");
+
+    Msg m("привет");
+    BraketsMsg bm("привет мир");
+    Printer p;
+
+    p.print(&bm);
+
     std::cout << "Hello World!\n";
 }
 
